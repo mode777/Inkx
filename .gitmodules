@@ -1,3 +1,4 @@
 [submodule "inkjs"]
 	path = inkjs
-	url = https://github.com/y-lohse/inkjs.git
+	url = https://github.com/mode777/inkjs.github
+	branch = es5

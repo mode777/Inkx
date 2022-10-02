@@ -33,7 +33,7 @@ module.exports = {
     extensions: [".tsx", ".ts", ".js"],
   },
   output: {
-    filename: './../../example_ink.js',
+    filename: './dist/main.js',
     path: __dirname,
     chunkFormat: 'commonjs'
   }

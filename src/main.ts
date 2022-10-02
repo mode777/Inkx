@@ -1,6 +1,7 @@
-import compiledStory from './../ink/test2.ink';
-
-import * as ink from 'inkjs/dist/ink'
+//import compiledStory from './../ink/test2.ink';
+import { Story as InkStory } from './../inkjs/src/engine/Story'
+import { Compiler } from './../inkjs/src/compiler/Compiler'
+//import * as ink from 'inkjs/dist/ink'
 import { Drawable } from './interfaces';
 import { InputUtils, TimeUtils } from './utils';
 import { Background } from './Background';
@@ -22,8 +23,8 @@ class Story {
   story: any;
   globalTags: Tags
 
-  constructor(inkData: any) {
-    this.story = new ink.Story(inkData)
+  constructor(story: InkStory) {
+    this.story = story
 
     this.globalTags = this.decodeTags(this.story.globalTags)
   }
@@ -347,13 +348,13 @@ class Stage {
     localStorage.setItem('ink_progress', JSON.stringify(this.currentChoices))
   }
 
-  async run(inkData: any, choices: number[]) {
+  async run(story: InkStory, choices: number[]) {
     this.reset()
     if (choices) {
       this.fastForward = true
       this.pastChoices = choices
     }
-    this.ink = new Story(inkData);
+    this.ink = new Story(story);
     this.background.fadeOut(0)
     while (this.ink.story.canContinue) {
       while (this.ink.story.canContinue) {
@@ -389,6 +390,9 @@ function draw(t) {
 requestAnimationFrame(draw)
 
 async function main(){
+  const ink = await (await fetch('assets/ink/test2.ink')).text()
+  const compiledStory = new Compiler(ink).Compile();
+  
   const item = localStorage.getItem('ink_progress')
   const choices = item !== undefined ? JSON.parse(item) : undefined
   let code = 1

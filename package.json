@@ -22,6 +22,6 @@
     "core-js": "^3.25.0",
     "inkjs": "^2.1.0",
     "reflect-metadata": "^0.1.13",
-    "tslib": "^1.10.0"
+    "tslib": "^2.4.0"
   }
 }
